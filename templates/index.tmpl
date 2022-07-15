@@ -1,11 +1,29 @@
+<head>
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+<head>
 <html>
-	<h1>
-		{{ .title }}
-	</h1>
+  <div class="header">
+    <img src="assets/green.png">
+    <h1>{{ .title }}</h1>
+  </div>
+  <div class="content">
+
   <p>
-  {{ .teamName }}
+  Das <b>{{ .teamName }}</b>
   </p>
   <p>
-  {{ .raceName }}
+  konnte das Rennen <b>{{ .raceName }}</b>
   <p>
+
+  <p>
+  mithilfe von <b>{{ .riderName }}</b> für sich entscheiden.
+  <p>
+  </div>
+  <div class="footer">
+    About
+  </div>
+
 </html>

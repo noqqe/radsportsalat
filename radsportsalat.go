@@ -3,6 +3,7 @@ package main
 import (
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -123,6 +124,110 @@ var raceNames = []string{
 	"Guangxi",
 }
 
+var riderNames = []string{
+	"Tadej Pogacar",
+	"Wout van Aert",
+	"Aleksandr Vlasov",
+	"Remco Evenepoel",
+	"Alejandro Valverde",
+	"Jonas Vingegaard",
+	"Mathieu van der Poel",
+	"Pello Bilbao",
+	"Primoz Roglic",
+	"Jai Hindley",
+	"Arnaud De Lie",
+	"Richard Carapaz",
+	"Daniel Martinez",
+	"Nairo Quintana",
+	"Alexander Kristoff",
+	"Mads Pedersen",
+	"Hugo Hofstetter",
+	"Stefan Küng",
+	"Sergio Higuita",
+	"Biniam Girmay",
+	"Guillaume Martin",
+	"Brandon McNulty",
+	"Michael Matthews",
+	"Warren Barguil",
+	"Damiano Caruso",
+	"Ben O'Connor",
+	"Benoît Cosnefroy",
+	"Mikel Landa",
+	"Tim Wellens",
+	"Fabio Jakobsen",
+	"Jasper Philipsen",
+	"Arnaud Démare",
+	"Matej Mohoric",
+	"Michael Woods",
+	"Danny van Poppel",
+	"Dylan Teuns",
+	"Romain Bardet",
+	"Ethan Hayter",
+	"Giacomo Nizzolo",
+	"Jan Hirt",
+	"Olav Kooij",
+	"Benjamin Thomas",
+	"Tim Merlier",
+	"Joao Almeida",
+	"Jesus Herrada",
+	"Geraint Thomas",
+	"Dylan van Baarle",
+	"Vincenzo Albanese",
+	"Tobias Halland Johannessen",
+	"Simon Yates",
+	"Lennard Kämna",
+	"Diego Ulissi",
+	"Juan Ayuso",
+	"Simone Consonni",
+	"Christophe Laporte",
+	"Vincenzo Nibali",
+	"Thymen Arensman",
+	"Julien Simon",
+	"Marc Hirschi",
+	"Mauro Schmid",
+	"Adam Yates",
+	"Domenico Pozzovivo",
+	"Jakob Fuglsang",
+	"Ion Izagirre",
+	"Amaury Capiot",
+	"Santiago Buitrago",
+	"David Gaudu",
+	"Carlos Rodriguez",
+	"Caleb Ewan",
+	"Mark Cavendish",
+	"Dylan Groenewegen",
+	"Neilson Powless",
+	"Tom Pidcock",
+	"Enric Mas",
+	"Axel Zingle",
+	"Thibaut Pinot",
+	"Quinten Hermans",
+	"Luca Mozzato",
+	"Simon Clarke",
+	"Dries De Bondt",
+	"Louis Meintjes",
+	"Natnael Tesfazion",
+	"Alexis Vuillermoz",
+	"Steff Cras",
+	"Fernando Gaviria",
+	"Emanuel Buchmann",
+	"Andrea Vendrame",
+	"Andreas Kron",
+	"Jasper Stuyven",
+	"Juan Pedro Lopez",
+	"Pierre Latour",
+	"Giulio Ciccone",
+	"Julian Alaphilippe",
+	"Piet Allegaert",
+	"Valentin Madouas",
+	"Max Walscheid",
+	"Alberto Dainese",
+	"Bauke Mollema",
+	"Nacer Bouhanni",
+	"Jack Haig",
+	// TODO complete names from https://firstcycling.com/ranking.php?k=fc&rank=&y=2022&page=1
+}
+
 // This is a helper to make decisions
 // based on percentage. Stupid but works.
 func rollDice(prob int) bool {
@@ -161,16 +266,27 @@ func genRaceName() string {
 	return pre + name1 + " " + name2 + post
 }
 
+func genRiderName() string {
+
+	name1 := riderNames[rand.Intn(len(riderNames))]
+
+	firstname := strings.Split(name1, " ")[0]
+	return firstname
+
+}
+
 func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.tmpl")
+	router.Static("/assets", "./assets")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title":    "Radsportsalat",
-			"teamName": genTeamName(),
-			"raceName": genRaceName(),
+			"title":     "Radsportsalat",
+			"teamName":  genTeamName(),
+			"raceName":  genRaceName(),
+			"riderName": genRiderName(),
 		})
 	})
 	router.Run(":8080")
