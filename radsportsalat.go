@@ -1,9 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
+	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 var teams = []string{
@@ -161,8 +163,16 @@ func genRaceName() string {
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	print(genTeamName())
-	fmt.Println()
-	print(genRaceName())
+
+	router := gin.Default()
+	router.LoadHTMLGlob("templates/*.tmpl")
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title":    "Radsportsalat",
+			"teamName": genTeamName(),
+			"raceName": genRaceName(),
+		})
+	})
+	router.Run(":8080")
 
 }
