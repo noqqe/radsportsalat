@@ -1,6 +1,6 @@
-body {
-  background: #ffda3f;
-}
+/* body { */
+/*   background: #ffda3f; */
+/* } */
 .header img {
   float: left;
   width: 100px;
@@ -13,6 +13,7 @@ body {
   left: 10px;
   font-size: 60px;
   font-family: 'DM Serif Display', serif;
+  color: #9b4dca;
 }
 .header {
   padding-bottom: 1em;

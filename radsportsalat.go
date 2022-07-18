@@ -1,10 +1,12 @@
 package main
 
 import (
+	"crypto/md5"
+	"encoding/binary"
+	"io"
 	"math/rand"
 	"net/http"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -277,15 +279,41 @@ func genRiderName() string {
 
 }
 
+//
+type Params struct {
+	Name string `form:"name" binding:"required"`
+}
+
 func main() {
-	rand.Seed(time.Now().UnixNano())
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.tmpl")
 	router.Static("/assets", "./assets")
+
+	// Landing Page
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title": "Radsportsalat",
+		})
+	})
+
+	// Team Page
+	router.GET("/team", func(c *gin.Context) {
+		var params Params
+		if err := c.ShouldBind(&params); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+			return
+		}
+
+		// Seed based on Name
+		h := md5.New()
+		io.WriteString(h, params.Name)
+		var seed uint64 = binary.BigEndian.Uint64(h.Sum(nil))
+		rand.Seed(int64(seed))
+
+		c.HTML(http.StatusOK, "team.tmpl", gin.H{
 			"title":     "Radsportsalat",
+			"Handle":    params.Name,
 			"teamName":  genTeamName(),
 			"raceName":  genRaceName(),
 			"riderName": genRiderName(),
