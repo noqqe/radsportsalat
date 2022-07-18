@@ -269,9 +269,11 @@ func genRaceName() string {
 func genRiderName() string {
 
 	name1 := riderNames[rand.Intn(len(riderNames))]
+	name2 := riderNames[rand.Intn(len(riderNames))]
 
 	firstname := strings.Split(name1, " ")[0]
-	return firstname
+	lastname := strings.Join(strings.Split(name2, " ")[1:], " ")
+	return firstname + " " + lastname
 
 }
 
