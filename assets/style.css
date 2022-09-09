@@ -37,17 +37,15 @@
 
 @media screen and (max-width: 600px) {
   .header img {
-    float: left;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
   .header h1 {
-    position: relative;
-    font-size: 39px;
-    top: 35px;
+    font-size: 35px;
+    top: 25px;
     font-family: 'DM Serif Display', serif;
     color: #9b4dca;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
   }
 }
 
