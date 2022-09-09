@@ -1,10 +1,18 @@
 {{ template "header" . }}
   <div class="nav">
 
+  <script>
+    function process() {
+      var url = "/team/" + document.getElementById("name").value;
+      location.href = url;
+      return false;
+    }
+  </script>
+
   <p>Eines morgens wachst du verschwitzt auf. Du hast wild geträumt. <i>Natürlich</i> von Radsport.
   <p>Dein Traum war seltsam. Fragmente der Namen, Teams und Rennen, die du sonst so gern verfolgst, kamen in deinem Unterbewusstsein komplett durcheinander.</p>
   </p>
-  <form action="/team" method="get">
+  <form onSubmit="return process();">
       <label for="name">Name</label>
       <input type="text" placeholder="@twitter" id="name" name="name">
       <input class="button-primary" type="submit" value="Los!">

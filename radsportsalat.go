@@ -96,7 +96,7 @@ func genPosition() string {
 }
 
 type Params struct {
-	Name string `form:"name" binding:"required"`
+	Name string `uri:"name" binding:"required"`
 }
 
 type Rider struct {
@@ -125,9 +125,9 @@ func main() {
 	})
 
 	// Team Page
-	router.GET("/team", func(c *gin.Context) {
+	router.GET("/team/:name", func(c *gin.Context) {
 		var params Params
-		if err := c.ShouldBind(&params); err != nil {
+		if err := c.ShouldBindUri(&params); err != nil {
 			c.HTML(http.StatusBadRequest, "error.tmpl", gin.H{
 				"title": "Radsportsalat",
 			})
