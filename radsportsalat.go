@@ -128,7 +128,9 @@ func main() {
 	router.GET("/team", func(c *gin.Context) {
 		var params Params
 		if err := c.ShouldBind(&params); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+			c.HTML(http.StatusBadRequest, "error.tmpl", gin.H{
+				"title": "Radsportsalat",
+			})
 			return
 		}
 
