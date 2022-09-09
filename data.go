@@ -244,3 +244,15 @@ var feelings = []string{
 	"Stolz",
 	"Gelangweilt",
 }
+
+var teamFunctions = []string{
+	"Sportlicher Leiter",
+	"Sportlicher Leiter",
+	"Physio",
+	"Ernährungsberater",
+	"Mechaniker",
+	"Sportdirektor",
+	"Social-Media Berater",
+	"Pressesprecher",
+	"Manager",
+}

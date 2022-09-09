@@ -59,14 +59,18 @@ func genRiderName() string {
 	firstname := strings.Split(name1, " ")[0]
 	lastname := strings.Join(strings.Split(name2, " ")[1:], " ")
 	return firstname + " " + lastname
-
 }
 
 func genRiderType() string {
 
 	ridertype := riderTypes[rand.Intn(len(riderTypes))]
 	return ridertype
+}
 
+func genTeamFunction() string {
+
+	teamFunction := teamFunctions[rand.Intn(len(teamFunctions))]
+	return teamFunction
 }
 
 func genFeeling() string {
@@ -135,12 +139,13 @@ func main() {
 		rand.Seed(int64(seed))
 
 		c.HTML(http.StatusOK, "team.tmpl", gin.H{
-			"title":     "Radsportsalat",
-			"handle":    params.Name,
-			"teamName":  genTeamName(),
-			"raceName":  genRaceName(),
-			"riderName": genRiderName(),
-			"feeling":   genFeeling(),
+			"title":        "Radsportsalat",
+			"handle":       params.Name,
+			"teamName":     genTeamName(),
+			"teamFunction": genTeamFunction(),
+			"raceName":     genRaceName(),
+			"riderName":    genRiderName(),
+			"feeling":      genFeeling(),
 			"team": []Rider{
 				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
 				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
