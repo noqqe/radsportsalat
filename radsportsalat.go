@@ -124,6 +124,12 @@ func main() {
 		})
 	})
 
+	router.GET("/team/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "error.tmpl", gin.H{
+			"title": "Radsportsalat",
+		})
+	})
+
 	// Team Page
 	router.GET("/team/:name", func(c *gin.Context) {
 		var params Params
