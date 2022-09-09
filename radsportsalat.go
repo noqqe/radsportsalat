@@ -6,6 +6,7 @@ import (
 	"io"
 	"math/rand"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -55,7 +56,7 @@ var teams = []string{
 	"Soudal",
 }
 
-var raceFixes = []string{
+var racePrefixes = []string{
 	"Tour",
 	"Race",
 	"Classic",
@@ -68,13 +69,21 @@ var raceFixes = []string{
 	"Giro",
 	"Dwars door",
 	"Cicliste de",
-	"-",
+}
+
+var raceSuffixes = []string{
+	"Tour",
+	"Classic",
+	"Cyclassics",
+	"Criterium",
+	"Grand Prix",
+	"Giro",
 }
 
 // TODO Proper tokenizing
 var raceNames = []string{
 	"Santos Down Under",
-	"Cadel Evant",
+	"Cadel Evans",
 	"Great Ocean Road",
 	"UAE",
 	"Omloop",
@@ -230,6 +239,24 @@ var riderNames = []string{
 	// TODO complete names from https://firstcycling.com/ranking.php?k=fc&rank=&y=2022&page=1
 }
 
+var riderTypes = []string{
+	"Sprinter",
+	"Bergfahrer",
+	"Puncheur",
+	"Domestique",
+	"Zeitfahrer",
+}
+
+var feelings = []string{
+	"Glücklich",
+	"Erschöpft",
+	"Traurig",
+	"Enttäuscht",
+	"Niedergeschlagen",
+	"Stolz",
+	"Gelangweilt",
+}
+
 // This is a helper to make decisions
 // based on percentage. Stupid but works.
 func rollDice(prob int) bool {
@@ -254,14 +281,15 @@ func genTeamName() string {
 
 func genRaceName() string {
 	var pre, post string
+
 	if rollDice(50) {
-		pre = raceFixes[rand.Intn(len(raceFixes))] + " "
+		pre = racePrefixes[rand.Intn(len(racePrefixes))] + " "
 	}
 	name1 := raceNames[rand.Intn(len(raceNames))]
 	name2 := raceNames[rand.Intn(len(raceNames))]
 
 	if rollDice(50) {
-		post = " " + raceFixes[rand.Intn(len(raceFixes))]
+		post = " " + raceSuffixes[rand.Intn(len(raceSuffixes))]
 	}
 
 	// TODO RNADOMIZE Trenner
@@ -279,9 +307,43 @@ func genRiderName() string {
 
 }
 
-//
+func genRiderType() string {
+
+	ridertype := riderTypes[rand.Intn(len(riderTypes))]
+	return ridertype
+
+}
+
+func genFeeling() string {
+
+	feeling := feelings[rand.Intn(len(feelings))]
+	return feeling
+
+}
+
+func genPosition() string {
+
+	if rollDice(5) {
+		return "DNS"
+	}
+
+	if rollDice(5) {
+		return "DNF"
+	}
+
+	position := rand.Intn(180)
+	return strconv.Itoa(position)
+
+}
+
 type Params struct {
 	Name string `form:"name" binding:"required"`
+}
+
+type Rider struct {
+	Position string
+	Name     string
+	Type     string
 }
 
 func main() {
@@ -313,10 +375,20 @@ func main() {
 
 		c.HTML(http.StatusOK, "team.tmpl", gin.H{
 			"title":     "Radsportsalat",
-			"Handle":    params.Name,
+			"handle":    params.Name,
 			"teamName":  genTeamName(),
 			"raceName":  genRaceName(),
 			"riderName": genRiderName(),
+			"feeling":   genFeeling(),
+			"team": []Rider{
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+			},
 		})
 	})
 	router.Run(":8080")

@@ -3,9 +3,9 @@
 /* } */
 .header img {
   float: left;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 30px;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 10px;
 }
 .header h1 {
   position: relative;

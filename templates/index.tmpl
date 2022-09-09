@@ -1,44 +1,19 @@
-<head>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-
-  <!-- Google Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
-
-  <!-- CSS Reset -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
-
-  <!-- Milligram CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
-
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<html>
-<body>
-<div class="section">
-  <div class="header">
-    <img src="assets/green.png">
-    <a href="/"><h1>{{ .title }}</h1></a>
-  </div>
-
-  <br/>
+{{ template "header" . }}
   <div class="nav">
 
+  <p>Eines morgens wachst du verschwitzt auf. Du hast wild geträumt. <i>Natürlich</i> von Radsport.
+  <p>Dein Traum war seltsam. Fragmente der Namen und Rennen, die du sonst so gern verfolgtst, kamen in deinem Unterbewusstsein komplett durcheinander.</p>
+  </p>
   <form action="/team" method="get">
       <label for="name">Name</label>
       <input type="text" placeholder="@twitter" id="name" name="name">
-      <input class="button-primary" type="submit" value="Send">
+      <input class="button-primary" type="submit" value="Los!">
   </form>
 
-  <form action="/team" method="get">
-      <label for="name">Zufall</label>
-      <input class="button-primary" type="submit" value="Send">
-  </form>
+  <!-- <form action="/team" method="get"> -->
+  <!--     <label for="name">Zufall</label> -->
+  <!--     <input class="button-primary" type="submit" value="Send"> -->
+  <!-- </form> -->
   </div>
 
-  <div class="footer">
-  </div>
-</div>
-<body>
-</html>
+{{ template "footer" . }}
