@@ -12,6 +12,11 @@ tasks:
     generates:
       - "./radsportsalat"
 
+  run:
+    deps: [build]
+    cmds:
+      - ./radsportsalat
+
   release:
     cmds:
       - git tag
