@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  build:
+    cmds:
+      - go build -ldflags "-X github.com/noqqe/radsportsalat/radsportsalat.Version=`git describe --tags`"  -v .
+    sources:
+      - "radsportsalat.go"
+    generates:
+      - "./radsportsalat"
+
+  release:
+    cmds:
+      - git tag
+      - read -p "Version v1.1.1 " version ; git tag $version
+      - git push --tags
+      - docker build -t noqqe/radsportsalat:$version .
+      - docker push noqqe/radsportsalat:$version
+    interactive: true
+
+  default:
+    cmds:
+      - task: build
+
