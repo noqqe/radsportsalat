@@ -8,6 +8,7 @@ tasks:
       - go build -ldflags "-X github.com/noqqe/radsportsalat/radsportsalat.Version=`git describe --tags`"  -v .
     sources:
       - "radsportsalat.go"
+      - "data.go"
     generates:
       - "./radsportsalat"
 
