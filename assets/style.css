@@ -44,6 +44,7 @@
   .header h1 {
     position: relative;
     font-size: 39px;
+    top: 35px;
     font-family: 'DM Serif Display', serif;
     color: #9b4dca;
     margin-bottom: 60px;
