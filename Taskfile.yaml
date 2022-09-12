@@ -5,7 +5,7 @@ version: 3
 tasks:
   build:
     cmds:
-      - go build -ldflags "-X github.com/noqqe/radsportsalat/radsportsalat.Version=`git describe --tags`"  -v .
+      - go build -ldflags "-X main.Version=`git describe --tags`"  -v .
     sources:
       - "radsportsalat.go"
       - "data.go"

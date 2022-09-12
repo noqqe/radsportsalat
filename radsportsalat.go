@@ -99,6 +99,8 @@ func genZeit() string {
 	return zeit
 }
 
+var Version string
+
 type Params struct {
 	Name string `uri:"name" binding:"required"`
 }
@@ -124,7 +126,8 @@ func main() {
 
 	router.GET("/about", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "about.tmpl", gin.H{
-			"title": "Radsportsalat",
+			"title":   "Radsportsalat",
+			"version": Version,
 		})
 	})
 
