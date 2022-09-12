@@ -444,7 +444,7 @@ var zeit = []string{
 	"deinen ersten Monat",
 	"deinen zwöflten Tag",
 	"deinen vorletzten Tag",
-	"letzten Tag",
+	"deinen letzten Tag",
 }
 
 var beforeFeelings = []string{
