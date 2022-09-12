@@ -22,7 +22,6 @@ func rollDice(prob int) bool {
 	}
 
 	return false
-
 }
 
 func genTeamName() string {
@@ -52,7 +51,6 @@ func genRaceName() string {
 }
 
 func genRiderName() string {
-
 	name1 := riderNames[rand.Intn(len(riderNames))]
 	name2 := riderNames[rand.Intn(len(riderNames))]
 
@@ -62,22 +60,23 @@ func genRiderName() string {
 }
 
 func genRiderType() string {
-
 	ridertype := riderTypes[rand.Intn(len(riderTypes))]
 	return ridertype
 }
 
 func genTeamFunction() string {
-
 	teamFunction := teamFunctions[rand.Intn(len(teamFunctions))]
 	return teamFunction
 }
 
-func genFeeling() string {
-
-	feeling := feelings[rand.Intn(len(feelings))]
+func genAfterFeeling() string {
+	feeling := afterFeelings[rand.Intn(len(afterFeelings))]
 	return feeling
+}
 
+func genBeforeFeeling() string {
+	feeling := beforeFeelings[rand.Intn(len(beforeFeelings))]
+	return feeling
 }
 
 func genPosition() string {
@@ -90,9 +89,14 @@ func genPosition() string {
 		return "DNF"
 	}
 
-	position := rand.Intn(180)
+	position := rand.Intn(150) + 1
 	return strconv.Itoa(position)
 
+}
+
+func genZeit() string {
+	zeit := zeit[rand.Intn(len(zeit))]
+	return zeit
 }
 
 type Params struct {
@@ -147,13 +151,15 @@ func main() {
 		rand.Seed(int64(seed))
 
 		c.HTML(http.StatusOK, "team.tmpl", gin.H{
-			"title":        "Radsportsalat",
-			"handle":       params.Name,
-			"teamName":     genTeamName(),
-			"teamFunction": genTeamFunction(),
-			"raceName":     genRaceName(),
-			"riderName":    genRiderName(),
-			"feeling":      genFeeling(),
+			"title":         "Radsportsalat",
+			"handle":        params.Name,
+			"teamName":      genTeamName(),
+			"teamFunction":  genTeamFunction(),
+			"raceName":      genRaceName(),
+			"riderName":     genRiderName(),
+			"zeit":          genZeit(),
+			"afterFeeling":  genAfterFeeling(),
+			"beforeFeeling": genBeforeFeeling(),
 			"team": []Rider{
 				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
 				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
