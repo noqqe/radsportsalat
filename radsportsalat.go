@@ -147,9 +147,14 @@ func main() {
 			return
 		}
 
+		// Format name
+		normalizedName := strings.Replace(params.Name, "@", "", 1)
+		normalizedName = strings.Replace(normalizedName, " ", "", -1)
+		normalizedName = strings.ToLower(strings.Replace(normalizedName, " ", "", 1))
+
 		// Seed based on Name
 		h := md5.New()
-		io.WriteString(h, params.Name)
+		io.WriteString(h, normalizedName)
 		var seed uint64 = binary.BigEndian.Uint64(h.Sum(nil))
 		rand.Seed(int64(seed))
 
