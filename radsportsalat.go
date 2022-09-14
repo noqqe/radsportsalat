@@ -79,7 +79,7 @@ func genBeforeFeeling() string {
 	return feeling
 }
 
-func genPosition() string {
+func genPosition(min int) string {
 
 	if rollDice(5) {
 		return "DNS"
@@ -89,7 +89,7 @@ func genPosition() string {
 		return "DNF"
 	}
 
-	position := rand.Intn(150) + 1
+	position := rand.Intn(min) + 1
 	return strconv.Itoa(position)
 
 }
@@ -169,13 +169,13 @@ func main() {
 			"afterFeeling":  genAfterFeeling(),
 			"beforeFeeling": genBeforeFeeling(),
 			"team": []Rider{
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(20), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(20), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(100), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(100), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(150), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(150), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(150), Type: genRiderType()},
 			},
 		})
 	})

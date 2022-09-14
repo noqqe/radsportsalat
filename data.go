@@ -368,7 +368,6 @@ var riderNames = []string{
 	"Aurélien Paret-Peintre",
 	"Davide Formolo",
 	"Rune Herregodts",
-	"Johannes Staune-Mittet",
 	"Matteo Jorgenson",
 	"Stefan Bissegger",
 	"Max Kanter",
