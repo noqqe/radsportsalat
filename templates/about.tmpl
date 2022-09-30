@@ -1,9 +1,11 @@
 {{ template "header" . }}
   <div class="nav">
 
-    <p>Radsportsalat ist ein kleines Spassprojekt in dem der Twitter Username als "Seed" für 
-    einen <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">PRNG</a> verwendet wird um ein zufälliges Setting mit zufällig verbundenen 
-    Namensfragmenten aus dem Radsport für den jeweiligen User zu genieren. Dieses ist einmalig und auf diesen User zugeschnitten.</p>
+  <h3>Warum?</h3>
+
+  <p>Radsportsalat ist ein kleines Spassprojekt in dem der Twitter Username als "Seed" für
+  einen <a href="https://en.wikipedia.org/wiki/Pseudorandom_number_generator">PRNG</a> verwendet wird um ein zufälliges Setting mit zufällig verbundenen
+  Namensfragmenten aus dem Radsport für den jeweiligen User zu genieren. Dieses ist einmalig und auf diesen User zugeschnitten.</p>
 
   <p>Das Projekt ist mit
   <ul>
@@ -17,6 +19,16 @@
   ...und weiteren Libraries / Tools geschrieben mit denen ich mich mal beschäftigen wollte.
   Wer sich für den Code interessiert, einfach via Twitter melden.<p>
 
+  <h3>Saison</h3>
+
+  <p>Seit 2022-10 wird jeden Monat eine neue "Saison" eingeläutet. Das bedeutet
+  das jeden Monat die Würfel einmal neu verteilt werden und ein neuer Traum geträumt wird.
+  Neue Teams, neue Fahrer, Neues Rennen!</p>
+
+  <h3>Technik</h3>
+
+  <p>Aktuelle Saison: {{ .saison }}<p>
   <p>Version: {{ .version }} </p>
+
   </div>
 {{ template "footer" . }}

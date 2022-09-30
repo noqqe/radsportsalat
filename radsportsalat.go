@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -111,6 +112,26 @@ type Rider struct {
 	Type     string
 }
 
+func genSaison() string {
+
+	currentTime := time.Now()
+	return currentTime.Format("2006-01")
+}
+
+func genSeed(input string) string {
+
+	// Format name to @HeiLandSanremo to heilandsanremo
+	normalizedName := strings.Replace(input, "@", "", 1)
+	normalizedName = strings.Replace(normalizedName, " ", "", -1)
+	normalizedName = strings.ToLower(strings.Replace(normalizedName, " ", "", 1))
+
+	// Season
+	currentTime := time.Now()
+	normalizedName = currentTime.Format("0601") + normalizedName
+
+	return normalizedName
+}
+
 func main() {
 
 	router := gin.Default()
@@ -128,6 +149,7 @@ func main() {
 		c.HTML(http.StatusOK, "about.tmpl", gin.H{
 			"title":   "Radsportsalat",
 			"version": Version,
+			"saison":  genSaison(),
 		})
 	})
 
@@ -147,20 +169,17 @@ func main() {
 			return
 		}
 
-		// Format name
-		normalizedName := strings.Replace(params.Name, "@", "", 1)
-		normalizedName = strings.Replace(normalizedName, " ", "", -1)
-		normalizedName = strings.ToLower(strings.Replace(normalizedName, " ", "", 1))
-
 		// Seed based on Name
 		h := md5.New()
-		io.WriteString(h, normalizedName)
+		s := genSeed(params.Name)
+		io.WriteString(h, s)
 		var seed uint64 = binary.BigEndian.Uint64(h.Sum(nil))
 		rand.Seed(int64(seed))
 
 		c.HTML(http.StatusOK, "team.tmpl", gin.H{
 			"title":         "Radsportsalat",
 			"handle":        params.Name,
+			"saison":        genSaison(),
 			"teamName":      genTeamName(),
 			"teamFunction":  genTeamFunction(),
 			"raceName":      genRaceName(),
@@ -170,7 +189,7 @@ func main() {
 			"beforeFeeling": genBeforeFeeling(),
 			"team": []Rider{
 				Rider{Name: genRiderName(), Position: genPosition(20), Type: genRiderType()},
-				Rider{Name: genRiderName(), Position: genPosition(20), Type: genRiderType()},
+				Rider{Name: genRiderName(), Position: genPosition(30), Type: genRiderType()},
 				Rider{Name: genRiderName(), Position: genPosition(100), Type: genRiderType()},
 				Rider{Name: genRiderName(), Position: genPosition(100), Type: genRiderType()},
 				Rider{Name: genRiderName(), Position: genPosition(150), Type: genRiderType()},
