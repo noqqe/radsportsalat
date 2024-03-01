@@ -5,7 +5,6 @@ RUN apk update && apk add --no-cache git
 WORKDIR /go/src/app
 COPY templates /go/src/app/templates
 COPY assets /go/src/app/assets
-COPY ical /go/src/app/ical
 COPY go.mod /go/src/app/go.mod
 COPY go.sum /go/src/app/go.sum
 COPY .git /go/src/app/.git
@@ -21,8 +20,6 @@ FROM scratch
 WORKDIR /go/src/app
 COPY --from=builder /go/src/app/radsportsalat /go/src/app/radsportsalat
 COPY templates /go/src/app/templates
-COPY assets /go/src/app/assets
-COPY ical /go/src/app/ical
 
 # run
 EXPOSE 8080
