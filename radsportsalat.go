@@ -137,6 +137,7 @@ func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.tmpl")
 	router.Static("/assets", "./assets")
+	router.Static("/ical", "./ical")
 
 	// Landing Page
 	router.GET("/", func(c *gin.Context) {
